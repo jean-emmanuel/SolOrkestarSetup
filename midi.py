@@ -18,7 +18,7 @@ def route(type, channel, number, value, send, get):
     now = time() * 1000
     delta = now - TIMESTAMP
     if delta < INTERVAL:
-        print('MIDI: double appui ignoré' % )
+        print('MIDI: double appui ignoré' % (type, channel, control, value))
         return
     TIMESTAMP = now
     ####
