@@ -1,12 +1,14 @@
 from server import Server
 import scenes
 import midi
+import osc
 
 s = Server(
     port = 5555,
     target = 9951,
     #default_scene = '1',
     midiroute = midi.route,
+    oscroute = osc.route,
     scenes = {
         '1': scenes.haiduk,
         '2': scenes.capra,

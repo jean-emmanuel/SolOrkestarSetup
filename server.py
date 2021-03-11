@@ -24,7 +24,7 @@ SL_QUERY_TIMEOUT = 1
 
 class Server(object):
 
-    def __init__(self, port, target, scenes, default_scene=None, midiroute={}):
+    def __init__(self, port, target, scenes, default_scene=None, midiroute={}, oscroute={}):
 
         self.target = target
         self.scenes = scenes
@@ -39,6 +39,7 @@ class Server(object):
 
         self.pending_queries = {}
 
+        self.oscroute = oscroute
         self.midiroute = midiroute
         if self.midiroute:
             self.midi = rtmidi.MidiIn(rtmidi.API_LINUX_ALSA, 'Conduite')
@@ -101,8 +102,14 @@ class Server(object):
             if query_id in self.pending_queries:
                 self.pending_queries[query_id]['value'] = args[1:]
 
+        elif '/pedalBoard' in path:
+
+            if self.oscroute:
+
+                self.oscroute(path, args, self.send, self.get)
 
         else:
+
             print('Unknown command %s' % path)
 
     def send(self, target, *args, PRINT=True):
