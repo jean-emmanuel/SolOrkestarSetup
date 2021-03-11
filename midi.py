@@ -18,12 +18,12 @@ def route(type, channel, number, value, send, get):
     now = time() * 1000
     delta = now - TIMESTAMP
     if delta < INTERVAL:
-        print('MIDI: double appui ignoré' % (type, channel, control, value))
+        print('MIDI: double appui ignoré: %s, %s, %s, %s' % (type, channel, number, value))
         return
     TIMESTAMP = now
     ####
 
-    print('MIDI: %s, %s, %s, %s' % (type, channel, control, value))
+    print('MIDI: %s, %s, %s, %s' % (type, channel, number, value))
 
     if type == 'program':
         # number -> numéro du program change -> numéro de la scène
@@ -42,7 +42,7 @@ def route(type, channel, number, value, send, get):
             if control == 8:
                 send('/sl/-1/hit', 'mute_on')
             else:
-                receive('/subscene', control)
+                receive('/subscene', number)
 
         """
         send('server', '/subscene', number)

@@ -5,7 +5,7 @@ INTERVAL = 500 # temps minimum entre 2 appuis en ms
 
 BANK = 0
 
-def route(path, *args, send, get):
+def route(path, args, send, get):
     """
         path: osc address (string: '/pedalBoard/button')
         args: osc arguments (list)
@@ -19,7 +19,7 @@ def route(path, *args, send, get):
     now = time() * 1000
     delta = now - TIMESTAMP
     if delta < INTERVAL:
-        print('MIDI: double appui ignoré' % (type, channel, control, value))
+        print('OSC: double appui ignoré: %s, %s' % (path, args))
         return
     TIMESTAMP = now
     ####
