@@ -14,6 +14,10 @@ def route(path, args, send, get):
         get: voir scenes.py
     """
 
+    if path == '/pedalBoard/buttonRelease':
+        return
+
+
     #### Anti double appui
     global TIMESTAMP
     now = time() * 1000
